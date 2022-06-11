@@ -862,9 +862,8 @@ files are installed: <a class="reference internal" href="../library/sys.html#sys
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">&quot;utf-8&quot;</span></code> if <a class="reference internal" href="#c.PyPreConfig.utf8_mode" title="PyPreConfig.utf8_mode"><code class="xref c c-member docutils literal notranslate"><span class="pre">PyPreConfig.utf8_mode</span></code></a> is non-zero.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">&quot;ascii&quot;</span></code> if Python detects that <code class="docutils literal notranslate"><span class="pre">nl_langinfo(CODESET)</span></code> announces
-the ASCII encoding (or Roman8 encoding on HP-UX), whereas the
-<code class="docutils literal notranslate"><span class="pre">mbstowcs()</span></code> function decodes from a different encoding (usually
-Latin1).</p></li>
+the ASCII encoding, whereas the <code class="docutils literal notranslate"><span class="pre">mbstowcs()</span></code> function
+decodes from a different encoding (usually Latin1).</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">&quot;utf-8&quot;</span></code> if <code class="docutils literal notranslate"><span class="pre">nl_langinfo(CODESET)</span></code> returns an empty string.</p></li>
 <li><p>Otherwise, use the <a class="reference internal" href="../glossary.html#term-locale-encoding"><span class="xref std std-term">locale encoding</span></a>:
 <code class="docutils literal notranslate"><span class="pre">nl_langinfo(CODESET)</span></code> result.</p></li>
@@ -1778,7 +1777,7 @@ phases:</p>
 <br />
     <br />
 
-    最後更新於 6月 08, 2022。
+    最後更新於 6月 11, 2022。
     <a href="/bugs.html">Found a bug</a>?
     <br />
 

@@ -293,10 +293,12 @@ previous drive setting:</p>
 </pre></div>
 </div>
 <p>Spurious slashes and single dots are collapsed, but double dots (<code class="docutils literal notranslate"><span class="pre">'..'</span></code>)
-are not, since this would change the meaning of a path in the face of
-symbolic links:</p>
+and leading double slashes (<code class="docutils literal notranslate"><span class="pre">'//'</span></code>) are not, since this would change the
+meaning of a path for various reasons (e.g. symbolic links, UNC paths):</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">PurePath</span><span class="p">(</span><span class="s1">&#39;foo//bar&#39;</span><span class="p">)</span>
 <span class="go">PurePosixPath(&#39;foo/bar&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">PurePath</span><span class="p">(</span><span class="s1">&#39;//foo/bar&#39;</span><span class="p">)</span>
+<span class="go">PurePosixPath(&#39;//foo/bar&#39;)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">PurePath</span><span class="p">(</span><span class="s1">&#39;foo/./bar&#39;</span><span class="p">)</span>
 <span class="go">PurePosixPath(&#39;foo/bar&#39;)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">PurePath</span><span class="p">(</span><span class="s1">&#39;foo/../bar&#39;</span><span class="p">)</span>
@@ -329,9 +331,11 @@ filesystem paths:</p>
 <dt class="sig sig-object py" id="pathlib.PureWindowsPath">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pathlib.</span></span><span class="sig-name descname"><span class="pre">PureWindowsPath</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">pathsegments</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pathlib.PureWindowsPath" title="本定義的永久連結">¶</a></dt>
 <dd><p>A subclass of <a class="reference internal" href="#pathlib.PurePath" title="pathlib.PurePath"><code class="xref py py-class docutils literal notranslate"><span class="pre">PurePath</span></code></a>, this path flavour represents Windows
-filesystem paths:</p>
+filesystem paths, including <a class="reference external" href="https://en.wikipedia.org/wiki/Path_(computing)#UNC">UNC paths</a>:</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">PureWindowsPath</span><span class="p">(</span><span class="s1">&#39;c:/Program Files/&#39;</span><span class="p">)</span>
 <span class="go">PureWindowsPath(&#39;c:/Program Files&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">PureWindowsPath</span><span class="p">(</span><span class="s1">&#39;//server/share/file&#39;</span><span class="p">)</span>
+<span class="go">PureWindowsPath(&#39;//server/share/file&#39;)</span>
 </pre></div>
 </div>
 <p><em>pathsegments</em> is specified similarly to <a class="reference internal" href="#pathlib.PurePath" title="pathlib.PurePath"><code class="xref py py-class docutils literal notranslate"><span class="pre">PurePath</span></code></a>.</p>
@@ -467,6 +471,24 @@ property:</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">PureWindowsPath</span><span class="p">(</span><span class="s1">&#39;//host/share&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">root</span>
 <span class="go">&#39;\\&#39;</span>
 </pre></div>
+</div>
+<p>If the path starts with more than two successive slashes,
+<a class="reference internal" href="#pathlib.PurePosixPath" title="pathlib.PurePosixPath"><code class="xref py py-class docutils literal notranslate"><span class="pre">PurePosixPath</span></code></a> collapses them:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">PurePosixPath</span><span class="p">(</span><span class="s1">&#39;//etc&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">root</span>
+<span class="go">&#39;//&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">PurePosixPath</span><span class="p">(</span><span class="s1">&#39;///etc&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">root</span>
+<span class="go">&#39;/&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">PurePosixPath</span><span class="p">(</span><span class="s1">&#39;////etc&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">root</span>
+<span class="go">&#39;/&#39;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">備註</p>
+<p>This behavior conforms to <em>The Open Group Base Specifications Issue 6</em>,
+paragraph <a class="reference external" href="xbd_path_resolution">4.11 *Pathname Resolution*</a>:</p>
+<p><em>&quot;A pathname that begins with two successive slashes may be interpreted in
+an implementation-defined manner, although more than two leading slashes
+shall be treated as a single slash.&quot;</em></p>
 </div>
 </dd></dl>
 
@@ -1702,7 +1724,7 @@ include <a class="reference internal" href="os.path.html#os.path.abspath" title=
 <br />
     <br />
 
-    最後更新於 6月 08, 2022。
+    最後更新於 6月 11, 2022。
     <a href="/bugs.html">Found a bug</a>?
     <br />
 

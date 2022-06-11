@@ -1434,12 +1434,6 @@ the vectorcall protocol.
 When a user sets <code class="xref py py-attr docutils literal notranslate"><span class="pre">__call__</span></code> in Python code, only <em>tp_call</em> is updated,
 likely making it inconsistent with the vectorcall function.</p>
 </div>
-<div class="admonition note">
-<p class="admonition-title">備註</p>
-<p>The semantics of the <code class="docutils literal notranslate"><span class="pre">tp_vectorcall_offset</span></code> slot are provisional and
-expected to be finalized in Python 3.9.
-If you use vectorcall, plan for updating your code for Python 3.9.</p>
-</div>
 <div class="versionchanged">
 <p><span class="versionmodified changed">在 3.8 版本變更: </span>Before version 3.8, this slot was named <code class="docutils literal notranslate"><span class="pre">tp_print</span></code>.
 In Python 2.x, it was used for printing to a file.
@@ -3633,7 +3627,7 @@ to create instances (e.g. uses a separate factory func) using
 <br />
     <br />
 
-    最後更新於 6月 08, 2022。
+    最後更新於 6月 11, 2022。
     <a href="/bugs.html">Found a bug</a>?
     <br />
 

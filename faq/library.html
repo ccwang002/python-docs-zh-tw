@@ -601,8 +601,13 @@ including <a class="reference internal" href="../library/shutil.html#shutil.copy
 </section>
 <section id="how-do-i-copy-a-file">
 <h3><a class="toc-backref" href="#id22" role="doc-backlink">How do I copy a file?</a><a class="headerlink" href="#how-do-i-copy-a-file" title="Permalink to this heading">¶</a></h3>
-<p>The <a class="reference internal" href="../library/shutil.html#module-shutil" title="shutil: High-level file operations, including copying."><code class="xref py py-mod docutils literal notranslate"><span class="pre">shutil</span></code></a> module contains a <a class="reference internal" href="../library/shutil.html#shutil.copyfile" title="shutil.copyfile"><code class="xref py py-func docutils literal notranslate"><span class="pre">copyfile()</span></code></a> function.  Note
-that on MacOS 9 it doesn't copy the resource fork and Finder info.</p>
+<p>The <a class="reference internal" href="../library/shutil.html#module-shutil" title="shutil: High-level file operations, including copying."><code class="xref py py-mod docutils literal notranslate"><span class="pre">shutil</span></code></a> module contains a <a class="reference internal" href="../library/shutil.html#shutil.copyfile" title="shutil.copyfile"><code class="xref py py-func docutils literal notranslate"><span class="pre">copyfile()</span></code></a> function.
+Note that on Windows NTFS volumes, it does not copy
+<a class="reference external" href="https://en.wikipedia.org/wiki/NTFS#Alternate_data_stream_(ADS)">alternate data streams</a>
+nor <a class="reference external" href="https://en.wikipedia.org/wiki/Resource_fork">resource forks</a>
+on macOS HFS+ volumes, though both are now rarely used.
+It also doesn't copy file permissions and metadata, though using
+<a class="reference internal" href="../library/shutil.html#shutil.copy2" title="shutil.copy2"><code class="xref py py-func docutils literal notranslate"><span class="pre">shutil.copy2()</span></code></a> instead will preserve most (though not all) of it.</p>
 </section>
 <section id="how-do-i-read-or-write-binary-data">
 <h3><a class="toc-backref" href="#id23" role="doc-backlink">How do I read (or write) binary data?</a><a class="headerlink" href="#how-do-i-read-or-write-binary-data" title="Permalink to this heading">¶</a></h3>
@@ -950,7 +955,7 @@ multiple random number generators.</p>
 <br />
     <br />
 
-    最後更新於 6月 08, 2022。
+    最後更新於 6月 11, 2022。
     <a href="/bugs.html">Found a bug</a>?
     <br />
 

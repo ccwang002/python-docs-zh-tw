@@ -312,9 +312,10 @@ following table:</p>
 <p>If the first character is not one of these, <code class="docutils literal notranslate"><span class="pre">'&#64;'</span></code> is assumed.</p>
 <p>Native byte order is big-endian or little-endian, depending on the host
 system. For example, Intel x86 and AMD64 (x86-64) are little-endian;
-Motorola 68000 and PowerPC G5 are big-endian; ARM and Intel Itanium feature
-switchable endianness (bi-endian). Use <code class="docutils literal notranslate"><span class="pre">sys.byteorder</span></code> to check the
-endianness of your system.</p>
+IBM z and most legacy architectures are big-endian;
+and ARM, RISC-V and IBM Power feature switchable endianness
+(bi-endian, though the former two are nearly always little-endian in practice).
+Use <code class="docutils literal notranslate"><span class="pre">sys.byteorder</span></code> to check the endianness of your system.</p>
 <p>Native size and alignment are determined using the C compiler's
 <code class="docutils literal notranslate"><span class="pre">sizeof</span></code> expression.  This is always combined with native byte order.</p>
 <p>Standard size depends only on the format character;  see the table in
@@ -810,7 +811,7 @@ by the <a class="reference internal" href="#struct.pack" title="struct.pack"><co
 <br />
     <br />
 
-    最後更新於 6月 08, 2022。
+    最後更新於 6月 11, 2022。
     <a href="/bugs.html">Found a bug</a>?
     <br />
 
